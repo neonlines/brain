@@ -17,6 +17,15 @@ final class PositionTests: XCTestCase {
     }
     
     func testSequence() {
-        
+        let brain = Brain(.init(radius: 1000))
+        var positions = [CGPoint]()
+        (0 ..< 5).forEach { _ in
+            let position = brain.position(positions)
+            positions.forEach {
+                XCTAssertGreaterThanOrEqual(abs($0.x - position.x), brain.borders.spacing)
+                XCTAssertGreaterThanOrEqual(abs($0.y - position.y), brain.borders.spacing)
+            }
+            positions.append(position)
+        }
     }
 }
