@@ -1,13 +1,13 @@
-import SpriteKit
+import Foundation
 
 public final class Brain {
-    private let borders: Borders
+    let borders: Borders
     
     public init(_ borders: Borders) {
         self.borders = borders
     }
     
-    public func positionPlayer(_ scene: SKScene) -> CGPoint {
+    public func position(_ lines: Set<CGPath>) -> CGPoint {
         .zero
     }
 }
