@@ -3,7 +3,7 @@ import XCTest
 
 final class PositionTests: XCTestCase {
     func testEmptySmall() {
-        let brain = Brain(.init(radius: 100))
+        let brain = Brain(.init(radius: 500))
         XCTAssertEqual(.zero, brain.position(.init()))
     }
     
@@ -17,7 +17,7 @@ final class PositionTests: XCTestCase {
     }
     
     func testSequence() {
-        let brain = Brain(.init(radius: 1000))
+        let brain = Brain(.init(radius: 3000))
         var positions = [CGPoint]()
         (0 ..< 5).forEach { _ in
             let position = brain.position(positions)
