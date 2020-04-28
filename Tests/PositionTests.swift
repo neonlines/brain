@@ -3,12 +3,12 @@ import XCTest
 
 final class PositionTests: XCTestCase {
     func testEmptySmall() {
-        let brain = Brain(.init(radius: 200))
+        let brain = Brain(borders: .init(radius: 200), wheel: .init(uncertainty: 0, delta: 0))
         XCTAssertEqual(.zero, brain.position(.init()))
     }
     
     func testEmptyBig() {
-        let brain = Brain(.init(radius: 1000))
+        let brain = Brain(borders: .init(radius: 1000), wheel: .init(uncertainty: 0, delta: 0))
         let position = brain.position(.init())
         XCTAssertGreaterThanOrEqual(position.x, brain.borders.min)
         XCTAssertGreaterThanOrEqual(position.y, brain.borders.min)
@@ -17,7 +17,7 @@ final class PositionTests: XCTestCase {
     }
     
     func testSequence() {
-        let brain = Brain(.init(radius: 3000))
+        let brain = Brain(borders: .init(radius: 3000), wheel: .init(uncertainty: 0, delta: 0))
         var positions = [CGPoint]()
         (0 ..< 5).forEach { _ in
             let position = brain.position(positions)
