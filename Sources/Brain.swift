@@ -13,6 +13,10 @@ public final class Brain {
         } (.init(x: randomPoint(), y: randomPoint()))
     }
     
+    public func orient(_ position: CGPoint, current: CGFloat, players: [CGPoint]) -> CGFloat {
+        .pi
+    }
+    
     private func randomPoint() -> CGFloat {
         .random(in: borders.min ... borders.max)
     }
