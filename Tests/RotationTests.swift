@@ -17,13 +17,13 @@ final class RotationTests: XCTestCase {
     
     func testAvoidBorders() {
         XCTAssertEqual(.pi / 2, brain.orient(.init(x: -98, y: 98), current: 0, players: []))
-        XCTAssertEqual(.pi, abs(brain.orient(.init(x: -98, y: 98), current: .pi / -2, players: [])))
+        XCTAssertEqual(-.pi, brain.orient(.init(x: -98, y: 98), current: .pi / -2, players: []))
         XCTAssertEqual(.pi / 2, brain.orient(.init(x: -98, y: 98), current: .pi / 2, players: []))
         XCTAssertEqual(.pi, brain.orient(.init(x: -98, y: 98), current: .pi, players: []))
         
         XCTAssertEqual(.pi / -2, brain.orient(.init(x: 98, y: 98), current: 0, players: []))
         XCTAssertEqual(.pi / -2, brain.orient(.init(x: 98, y: 98), current: .pi / -2, players: []))
-        XCTAssertEqual(.pi, abs(brain.orient(.init(x: 98, y: 98), current: .pi / 2, players: [])))
+        XCTAssertEqual(.pi, brain.orient(.init(x: 98, y: 98), current: .pi / 2, players: []))
         XCTAssertEqual(.pi, brain.orient(.init(x: 98, y: 98), current: .pi, players: []))
         
         XCTAssertEqual(0, brain.orient(.init(x: -98, y: -98), current: 0, players: []))
@@ -34,13 +34,33 @@ final class RotationTests: XCTestCase {
         XCTAssertEqual(0, brain.orient(.init(x: 98, y: -98), current: 0, players: []))
         XCTAssertEqual(.pi / -2, brain.orient(.init(x: 98, y: -98), current: .pi / -2, players: []))
         XCTAssertEqual(0, brain.orient(.init(x: 98, y: -98), current: .pi / 2, players: []))
-        XCTAssertEqual(.pi * 1.5, brain.orient(.init(x: 98, y: -98), current: .pi, players: []))
+        XCTAssertEqual(.pi / -2, brain.orient(.init(x: 98, y: -98), current: .pi, players: []))
     }
     
     func testLookPlayer() {
-        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 50, y: 0)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 0, y: 0)]))
+        XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi, players: [.init(x: 0, y: 0)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: 0, players: [.init(x: 0, y: 0)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / 2, players: [.init(x: 0, y: 0)]))
+        
+        XCTAssertEqual(-.pi, brain.orient(.zero, current: .pi / -2, players: [.init(x: 50, y: 0)]))
         XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi, players: [.init(x: 50, y: 0)]))
-        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 50, y: 0)]))
+        XCTAssertEqual(.pi / 2, brain.orient(.zero, current: 0, players: [.init(x: 50, y: 0)]))
         XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi / 2, players: [.init(x: 50, y: 0)]))
+        
+        XCTAssertEqual(.pi / -2, brain.orient(.zero, current: .pi / -2, players: [.init(x: -50, y: 0)]))
+        XCTAssertEqual(.pi / -2, brain.orient(.zero, current: .pi, players: [.init(x: -50, y: 0)]))
+        XCTAssertEqual(.pi / -2, brain.orient(.zero, current: 0, players: [.init(x: -50, y: 0)]))
+        XCTAssertEqual(.pi, brain.orient(.zero, current: .pi / 2, players: [.init(x: -50, y: 0)]))
+        
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 0, y: 50)]))
+        XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi, players: [.init(x: 0, y: 50)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: 0, players: [.init(x: 0, y: 50)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / 2, players: [.init(x: 0, y: 50)]))
+        
+        XCTAssertEqual(-.pi, brain.orient(.zero, current: .pi / -2, players: [.init(x: 0, y: -50)]))
+        XCTAssertEqual(.pi, brain.orient(.zero, current: .pi, players: [.init(x: 0, y: -50)]))
+        XCTAssertEqual(.pi / -2, brain.orient(.zero, current: 0, players: [.init(x: 0, y: -50)]))
+        XCTAssertEqual(.pi, brain.orient(.zero, current: .pi / 2, players: [.init(x: 0, y: -50)]))
     }
 }
