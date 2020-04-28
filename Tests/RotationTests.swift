@@ -36,4 +36,11 @@ final class RotationTests: XCTestCase {
         XCTAssertEqual(0, brain.orient(.init(x: 98, y: -98), current: .pi / 2, players: []))
         XCTAssertEqual(.pi * 1.5, brain.orient(.init(x: 98, y: -98), current: .pi, players: []))
     }
+    
+    func testLookPlayer() {
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 50, y: 0)]))
+        XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi, players: [.init(x: 50, y: 0)]))
+        XCTAssertEqual(0, brain.orient(.zero, current: .pi / -2, players: [.init(x: 50, y: 0)]))
+        XCTAssertEqual(.pi / 2, brain.orient(.zero, current: .pi / 2, players: [.init(x: 50, y: 0)]))
+    }
 }

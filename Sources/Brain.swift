@@ -16,11 +16,25 @@ public final class Brain {
     }
     
     public func orient(_ position: CGPoint, current: CGFloat, players: [CGPoint]) -> CGFloat {
-        [current, current - wheel.delta, current + wheel.delta].map { ($0, borderSteps(position, bearing: $0)) }.max { $0.1 < $1.1 }!.0
+        let a = [current, current - wheel.delta, current + wheel.delta].map {
+            ($0, playersDistance(position, bearing: $0, players: players), borderSteps(position, bearing: $0))
+        }.sorted {
+            guard abs($0.1) == abs($1.1) else { return abs($0.1) < abs($1.1) }
+            return $0.2 > $1.2
+        }
+        print(a)
+        return a.first!.0
     }
     
     private func randomPoint() -> CGFloat {
         .random(in: borders.min ... borders.max)
+    }
+    
+    private func playersDistance(_ point: CGPoint, bearing: CGFloat, players: [CGPoint]) -> CGFloat {
+        let distances = players.map { ($0, pow($0.x - point.x, 2) + pow($0.y - point.y, 2)) }
+        return distances.max { $0.1 < $1.1 }.map {
+            atan2($0.0.x - point.x, $0.0.y - point.y) - bearing
+        } ?? .greatestFiniteMagnitude
     }
     
     private func borderSteps(_ point: CGPoint, bearing: CGFloat) -> Int {
