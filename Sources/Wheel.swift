@@ -1,11 +1,11 @@
 import CoreGraphics
 
 public struct Wheel {
-    let uncertainty: Int
     let delta: CGFloat
+    let speed: CGFloat
     
-    public init(uncertainty: Int, delta: CGFloat) {
-        self.uncertainty = uncertainty
+    public init(delta: CGFloat, speed: CGFloat) {
         self.delta = delta
+        self.speed = speed
     }
 }
