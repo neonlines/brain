@@ -16,12 +16,9 @@ public final class Brain {
     }
     
     public func orient(_ position: CGPoint, current: CGFloat, player: CGPoint) -> CGFloat {
-        return [current, current - wheel.delta, current + wheel.delta].map(caping).map {
-            ($0, playersDistance(position, bearing: $0, player: player), borderSteps(position, bearing: $0))
-        }.sorted {
-            guard abs($0.1) == abs($1.1) else { return abs($0.1) < abs($1.1) }
-            return $0.2 > $1.2
-        }.first!.0
+        [current, current - wheel.delta, current + wheel.delta].map(caping).map {
+            ($0, pointing(position, bearing: $0, player: player))
+        }.sorted { abs($0.1) < abs($1.1) }.first!.0
     }
     
     private func caping(_ radians: CGFloat) -> CGFloat {
@@ -36,37 +33,7 @@ public final class Brain {
         .random(in: borders.min ... borders.max)
     }
     
-    private func playersDistance(_ point: CGPoint, bearing: CGFloat, player: CGPoint) -> CGFloat {
+    private func pointing(_ point: CGPoint, bearing: CGFloat, player: CGPoint) -> CGFloat {
         caping(atan2(player.x - point.x, player.y - point.y) - bearing)
-    }
-    
-    private func borderSteps(_ point: CGPoint, bearing: CGFloat) -> Int {
-        var distance = borderDistance(point)
-        guard distance > wheel.speed else { return 0 }
-        
-        var newPoint = move(point, bearing: bearing)
-        var newDistance = borderDistance(newPoint)
-        guard newDistance < distance else { return .max }
-        
-        var steps = 0
-        while newDistance > wheel.speed && newDistance < distance {
-            steps += 1
-            distance = newDistance
-            newPoint = move(newPoint, bearing: bearing)
-            newDistance = borderDistance(newPoint)
-        }
-        return steps
-    }
-    
-    private func move(_ point: CGPoint, bearing: CGFloat) -> CGPoint {
-        let dx = sin(bearing)
-        let dy = cos(bearing)
-        let speedY = (1 - abs(dx)) * wheel.speed
-        let speedX = wheel.speed - speedY
-        return .init(x: point.x + (dx * speedX), y: point.y + (dy * speedY))
-    }
-    
-    private func borderDistance(_ point: CGPoint) -> CGFloat {
-        min(abs(borders.radius - abs(point.x)), abs(borders.radius - abs(point.y)))
     }
 }

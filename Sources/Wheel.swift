@@ -2,10 +2,8 @@ import CoreGraphics
 
 public struct Wheel {
     let delta: CGFloat
-    let speed: CGFloat
     
-    public init(delta: CGFloat, speed: CGFloat) {
+    public init(delta: CGFloat) {
         self.delta = delta
-        self.speed = speed
     }
 }
