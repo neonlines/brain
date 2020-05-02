@@ -3,7 +3,7 @@ import XCTest
 
 final class PositionTests: XCTestCase {
     func testEmptySmall() {
-        let brain = Brain(borders: .init(radius: 200), wheel: .init(delta: 0))
+        let brain = Brain(borders: .init(radius: 300), wheel: .init(delta: 0))
         XCTAssertEqual(.zero, brain.position(.init()))
     }
     
@@ -30,7 +30,7 @@ final class PositionTests: XCTestCase {
     }
     
     func testUnableToFind() {
-        let brain = Brain(borders: .init(radius: 200), wheel: .init(delta: 0))
+        let brain = Brain(borders: .init(radius: 300), wheel: .init(delta: 0))
         XCTAssertNil(brain.position([.zero]))
     }
 }
