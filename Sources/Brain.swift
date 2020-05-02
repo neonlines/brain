@@ -9,9 +9,11 @@ public final class Brain {
         self.wheel = wheel
     }
     
-    public func position(_ lines: [CGPoint]) -> CGPoint {
+    public func position(_ lines: [CGPoint], retry: Int = 10) -> CGPoint? {
         { point in
-            lines.contains { abs(point.x - $0.x) < borders.spacing || abs(point.y - $0.y) < borders.spacing } ? position(lines) : point
+            lines.contains { abs(point.x - $0.x) < borders.spacing || abs(point.y - $0.y) < borders.spacing }
+                ? retry > 0 ? position(lines, retry: retry - 1) : nil
+                : point
         } (.init(x: randomPoint(), y: randomPoint()))
     }
     
