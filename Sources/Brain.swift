@@ -1,4 +1,4 @@
-import Foundation
+import CoreGraphics
 
 public final class Brain {
     let borders: Borders
