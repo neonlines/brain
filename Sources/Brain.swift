@@ -9,7 +9,7 @@ public final class Brain {
         self.wheel = wheel
     }
     
-    public func position(_ lines: [CGPoint], retry: Int = 25) -> CGPoint? {
+    public func position(_ lines: [CGPoint], retry: Int = 30) -> CGPoint? {
         { point in
             lines.contains { abs(point.x - $0.x) < borders.spacing || abs(point.y - $0.y) < borders.spacing }
                 ? retry > 0 ? position(lines, retry: retry - 1) : nil
